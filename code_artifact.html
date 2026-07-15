@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>學生簽到</title>
+
+<style>
+
+body{
+
+    font-family:Arial;
+
+    background:#f3f3f3;
+
+    text-align:center;
+
+    margin-top:100px;
+
+}
+
+input{
+
+    width:250px;
+
+    padding:12px;
+
+    font-size:20px;
+
+}
+
+button{
+
+    margin-top:20px;
+
+    padding:12px 40px;
+
+    font-size:20px;
+
+    cursor:pointer;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>學生簽到</h1>
+
+<input
+id="name"
+placeholder="請輸入姓名">
+
+<br>
+
+<button onclick="send()">
+
+送出
+
+</button>
+
+<script>
+
+function send(){
+
+    let name=document.getElementById("name").value;
+
+    if(name==""){
+
+        alert("請輸入姓名");
+
+        return;
+
+    }
+
+    fetch("https://script.google.com/macros/s/AKfycbyUCKns2IugDUi6Klic3WFMmSPe1RIK-wcgtLGBiawzaZWFa3zZrUf8tATSTnqM7SsMNA/exec",{
+
+        method:"POST",
+
+        headers:{
+            "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify({
+
+            name:name
+
+        })
+
+    })
+
+    .then(res=>res.json())
+
+    .then(data=>{
+
+        alert("簽到成功！");
+
+        document.getElementById("name").value="";
+
+    })
+
+    .catch(err=>{
+
+        alert("發生錯誤");
+
+        console.log(err);
+
+    });
+
+}
+
+</script>
+
+</body>
+
+</html>
